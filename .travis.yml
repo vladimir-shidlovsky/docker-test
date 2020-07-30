@@ -6,3 +6,14 @@ before_install:
   - docker build -t shidlovsky/docker-test -f Dockerfile.dev .
 scripts:
   - docker run -e CI=true shidlovsky/docker-test npm run test
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "Docker"
+  env: "Docker-env"
+  bucket_name: "elasticbeanstalk-us-west-2-878115988852"
+  bucket_path: "docker"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
